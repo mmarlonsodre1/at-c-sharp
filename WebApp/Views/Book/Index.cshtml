@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Index";
+    var session = HttpContextAccessor.HttpContext.Session;
+}
+
+@model IEnumerable<Book>
+
+@if (!String.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+<table width="100%" border="1">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>ISBN</th>
+            <th>Ano</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+        <tr>
+            <td>@book.Title</td>
+            <td>@book.ISBN</td>
+            <td>@book.Year</td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="/Book/Edit?id=@book.Id">Editar</a>
+                <a class="btn btn-danger btn-sm" href="/Book/Delete?id=@book.Id">Excluir</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<div>
+    <a class="btn btn-primary" asp-controller="Book" asp-action="New">Cadastrar Livro</a>
+    <a class="btn btn-primary" asp-controller="Author" asp-action="Index">Lista de Autores</a>
+    <a class="btn btn-primary" asp-action="Logout">Logout</a>
+</div>

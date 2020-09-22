@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@model Author
+
+<h1>Editando</h1>
+
+<form method="post" asp-action="SaveEdit" asp-controller="Author" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <label for="txtName">Nome?</label>
+        <input type="text" asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+    <div class="form-group">
+        Sobrenome?</label>
+        <input type="text" asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+    <div class="form-group">
+        Email?</label>
+        <input type="text" asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div class="form-group">
+        <label for="txtDate">Data de Nascimento?</label>
+        <input type="date" asp-for="Birthday" />
+    </div>
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+
