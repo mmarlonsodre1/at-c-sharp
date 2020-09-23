@@ -12,10 +12,12 @@ namespace Api.Controllers
     public class AuthorsController : ControllerBase
     {
         private AuthorRepository AuthorRepository { get; set; }
+        private BookRepository BookRepository { get; set; }
 
-        public AuthorsController(AuthorRepository authorRepository)
+        public AuthorsController(AuthorRepository authorRepository, BookRepository bookRepository)
         {
             AuthorRepository = authorRepository;
+            BookRepository = bookRepository;
         }
 
         [HttpGet]
@@ -30,6 +32,14 @@ namespace Api.Controllers
         public Author Get(string id)
         {
             return AuthorRepository.GetAuthorById(id);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Books/{id}")]
+        public List<Book> GetBooks([FromRoute] string id)
+        {
+            return BookRepository.GetBookByAuthorId(id);
         }
 
         [HttpPost]

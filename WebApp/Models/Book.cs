@@ -17,6 +17,8 @@ namespace WebApp.Models
         [Required(ErrorMessage = "Campo obrigatório")]
         [DataType(DataType.PhoneNumber)]
         public int Year { get; set; }
-        public List<Author> Authors { get; set; }
+
+        [Required(ErrorMessage = "Campo obrigatório")]
+        public string AuthorId { get; set; }
     }
 }

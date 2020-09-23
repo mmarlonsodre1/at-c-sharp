@@ -18,19 +18,23 @@
 <table width="100%" border="1">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Nome</th>
             <th>Email</th>
             <th>Data de Aniversário</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var author in Model)
         {
         <tr>
+            <td>@author.Id</td>
             <td>@author.FirstName @author.LastName</td>
             <td>@author.Email</td>
             <td>@author.Birthday</td>
             <td>
+                <a class="btn btn-warning btn-sm" href="/Author/Books?id=@author.Id">Livros</a>
                 <a class="btn btn-warning btn-sm" href="/Author/Edit?id=@author.Id">Editar</a>
                 <a class="btn btn-danger btn-sm" href="/Author/Delete?id=@author.Id">Excluir</a>
             </td>

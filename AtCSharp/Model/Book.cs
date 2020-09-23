@@ -7,17 +7,10 @@ namespace WebApp.Models
     public class Book
     {
         public Guid Id { get; set; }
-
-        [Required(ErrorMessage = "Campo obrigatório")]
         public string Title { get; set; }
-
-        [Required(ErrorMessage = "Campo obrigatório")]
         public string ISBN { get; set; }
-
-        [Required(ErrorMessage = "Campo obrigatório")]
-        [DataType(DataType.PhoneNumber)]
         public int Year { get; set; }
-        public List<Author> Authors { get; set; }
+        public Guid AuthorId { get; set; }
 
         public Book()
         { }
@@ -30,13 +23,13 @@ namespace WebApp.Models
             Year = year;
         }
 
-        public Book(Guid id, string title, string isbn, int year, List<Author> authors)
+        public Book(Guid id, string title, string isbn, int year, Guid authorId)
         {
             Id = id;
             Title = title;
             ISBN = isbn;
             Year = year;
-            Authors = authors;
+            AuthorId = authorId;
         }
     }
 }

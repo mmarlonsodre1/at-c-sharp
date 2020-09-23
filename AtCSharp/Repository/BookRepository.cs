@@ -32,7 +32,8 @@ namespace Api.Repository
                         Guid.Parse(reader["Id"].ToString()),
                         reader["Title"].ToString(),
                         reader["ISBN"].ToString(),
-                        int.Parse(reader["Year"].ToString())
+                        int.Parse(reader["Year"].ToString()),
+                        Guid.Parse(reader["AuthorId"].ToString())
                     );
                     result.Add(person);
                 }
@@ -60,7 +61,8 @@ namespace Api.Repository
                         Guid.Parse(reader["Id"].ToString()),
                         reader["Title"].ToString(),
                         reader["ISBN"].ToString(),
-                        int.Parse(reader["Year"].ToString())
+                        int.Parse(reader["Year"].ToString()),
+                        Guid.Parse(reader["AuthorId"].ToString())
                     );
                     result.Add(person);
                 }
@@ -71,6 +73,35 @@ namespace Api.Repository
             }
         }
 
+        public List<Book> GetBookByAuthorId(string id)
+        {
+            List<Book> result = new List<Book>();
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+
+                SqlCommand sqlCommand = connection.CreateCommand();
+                sqlCommand.CommandText = "SELECT * FROM [dbo].[Book] WHERE AuthorId = @P1";
+                sqlCommand.Parameters.AddWithValue("P1", id);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    Book person = new Book(
+                        Guid.Parse(reader["Id"].ToString()),
+                        reader["Title"].ToString(),
+                        reader["ISBN"].ToString(),
+                        int.Parse(reader["Year"].ToString()),
+                        Guid.Parse(reader["AuthorId"].ToString())
+                    );
+                    result.Add(person);
+                }
+
+                connection.Close();
+                return result;
+            }
+        }
+
         public void Save(Book book)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -78,11 +109,12 @@ namespace Api.Repository
                 if (connection.State != System.Data.ConnectionState.Open) connection.Open();
 
                 SqlCommand sqlCommand = connection.CreateCommand();
-                sqlCommand.CommandText = "INSERT INTO [dbo].[Author](Id, Title, ISBN, Year) VALUES (@P1, @P2, @P3, @P4)";
+                sqlCommand.CommandText = "INSERT INTO [dbo].[Book](Id, Title, ISBN, Year, AuthorId) VALUES (@P1, @P2, @P3, @P4, @P5)";
                 sqlCommand.Parameters.AddWithValue("P1", book.Id);
                 sqlCommand.Parameters.AddWithValue("P2", book.Title);
                 sqlCommand.Parameters.AddWithValue("P3", book.ISBN);
                 sqlCommand.Parameters.AddWithValue("P4", book.Year);
+                sqlCommand.Parameters.AddWithValue("P5", book.AuthorId);
 
                 sqlCommand.ExecuteNonQuery();
                 connection.Close();

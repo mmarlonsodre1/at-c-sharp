@@ -74,7 +74,7 @@ namespace FundamentosCsharpTp3.WebApplication.Controllers
         public async Task<IActionResult> Login(User model)
         {
             if (ModelState.IsValid == false)
-                return View();
+                return View("Index", model);
 
             var login = await postLogin(model);
             if (login != null)
@@ -89,7 +89,7 @@ namespace FundamentosCsharpTp3.WebApplication.Controllers
         public async Task<IActionResult> RegisterUser(User model)
         {
             if (ModelState.IsValid == false)
-                return View();
+                return View("Register", model);
 
             model.Id = Guid.NewGuid();
             var login = await postRegister(model);

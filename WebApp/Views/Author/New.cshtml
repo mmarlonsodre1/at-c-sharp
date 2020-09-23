@@ -11,22 +11,22 @@
     <div class="form-group">
         <label for="txtName">Nome?</label>
         @Html.TextBoxFor(x => x.FirstName)
-        @Html.ValidationMessageFor(x => x.FirstName)
+        @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
         <label for="txtSurname">Sobrenome?</label>
         @Html.TextBoxFor(x => x.LastName)
-        @Html.ValidationMessageFor(x => x.LastName)
+        @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
         <label for="txtEmail">Email?</label>
-        @Html.TextBoxFor(x => x.Email)
-        @Html.ValidationMessageFor(x => x.Email)
+        <input type="email" asp-for="Email" />
+        <span asp-validation-for="Email"></span>
     </div>
     <div class="form-group">
         <label for="txtDate">Data de Nascimento?</label>
         @Html.EditorFor(x => x.Birthday)
-        @Html.ValidationMessageFor(x => x.Birthday)
+        @Html.ValidationMessageFor(x => x.Birthday, "", new { @class = "text-danger" })
     </div>
     <button type="submit" class="btn btn-primary">Criar novo</button>
 }

@@ -14,7 +14,7 @@
         @Html.ValidationMessageFor(x => x.Title)
     </div>
     <div class="form-group">
-        <label for="txtSurname">Sobrenome?</label>
+        <label for="txtSurname">ISBN?</label>
         @Html.TextBoxFor(x => x.ISBN)
         @Html.ValidationMessageFor(x => x.ISBN)
     </div>
@@ -24,16 +24,9 @@
         @Html.ValidationMessageFor(x => x.Year)
     </div>
     <div class="form-group">
-        <label for="txtAuthor">Autor</label>
-        @if (ViewBag.Authors != null)
-        {
-            <select name="cars" id="cars">
-                @foreach (var author in ViewBag.Authors)
-                {
-                    <option value="@author.Id">@author.FirstName @author.LastName</option>
-                }
-            </select>
-        }
+        <label for="txtAuthor">Id do Autor</label>
+        @Html.TextBoxFor(x => x.AuthorId)
+        @Html.ValidationMessageFor(x => x.AuthorId)
     </div>
     <button type="submit" class="btn btn-primary">Criar novo</button>
 }
